@@ -1,5 +1,6 @@
 #include<stdio.h> 
 #include<stdlib.h> 
+#include<string.h> 
 #define MAX_TOKENS 1000 
 #define MAX_KEYWORD_SIZE 75
 
@@ -20,7 +21,7 @@ typedef enum {
 typedef enum {
    SEMICOLON,
    OPEN_PAREN,
-   CLOSE_PAREN,
+   CLOSE_PAREN
 } SeperatorType; 
 
 //Types of tokens

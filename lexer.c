@@ -1,6 +1,6 @@
 #include "lexer.h"
 
-//Returns one instnace of the AllTokens class, requires a pointer to a FILE object
+//Returns one instance of the AllTokens class, requires a pointer to a FILE object
 AllTokens lexer(FILE* file) {
     char curChar = fgetc(file); 
     int  tokCount= 0;
@@ -24,6 +24,7 @@ AllTokens lexer(FILE* file) {
 //Returns one token per function call, requires a pointer to a FILE object and a pointer to a char object 
 Token createToken(FILE* file, char* curChar) {
     Token result; 
+    result.tokenType = -1; 
 
     //Check if curChar is a seperator token 
     if(*curChar == ';'){
@@ -65,17 +66,17 @@ Token createToken(FILE* file, char* curChar) {
         int count = 0; 
 
         while(isalpha(*curChar)){
-            if((count + 1) > MAX_KEYWORD_SIZE) { printf("KEYWORD/VARIABLE CHAR SIZE OVER MAXIMUM"); exit(EXIT_FAILURE); }
+            if(count >= MAX_KEYWORD_SIZE - 1) { printf("KEYWORD/VARIABLE CHAR SIZE OVER MAXIMUM"); exit(EXIT_FAILURE); }
 
             buffer[count] = *curChar; 
             count++; 
             *curChar = fgetc(file); 
         }
         
-        count++; 
-        buffer[count] = '\n'; 
+        buffer[count] = '\0'; 
 
-        //Check to see if the characters form a keyword
+        //Check to see if the characters form a keywordS
+
         if(strcmp(buffer, "exit") == 0){
             result.tokenType = KEYWORD; 
             result.Data.Keyword.type = EXIT; 
@@ -93,3 +94,4 @@ Token createToken(FILE* file, char* curChar) {
 
     return result; 
 }
+
